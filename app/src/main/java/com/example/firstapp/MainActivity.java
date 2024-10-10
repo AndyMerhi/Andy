@@ -15,8 +15,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //todo this procedure is used everytime to switch fragments
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        Fragment FragmentMain = new FragmentMain();
-        ft.replace(R.id.FragmentLayout, FragmentMain, null);
+        Fragment FragmentFirst = new FragmentFirst();
+        ft.replace(R.id.FragmentLayout, FragmentFirst, null);
         ft.commit();
     }
 
