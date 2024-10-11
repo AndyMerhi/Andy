@@ -25,7 +25,6 @@ public class FragmentFirst extends Fragment {
         loginButton = view.findViewById(R.id.login_Button);
         registerButton = view.findViewById(R.id.register_Button);
 
-
     }
 
     @Override
