@@ -21,7 +21,7 @@ public class FragmentFirst extends Fragment {
     private DataBaseHelper dataBaseHelper;
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textUsername = view.findViewById(R.id.userName);
         textPassword = view.findViewById(R.id.password);
@@ -38,17 +38,17 @@ public class FragmentFirst extends Fragment {
 
                 if (dataBaseHelper.checkUser(username,password)){
                     dataBaseHelper.updateUSerLastLogin(username);
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    Fragment FragmentMain = new FragmentMain();
-                    ft.replace(R.id.FragmentLayout, FragmentMain, null);
+
+                    // Navigate to FragmentMain on successful login
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    Fragment fragmentMain = new FragmentMain();
+                    ft.replace(R.id.FragmentLayout, fragmentMain);
                     ft.commit();
                 }
                 else {
                     Toast.makeText(getContext(),"You have to register.",Toast.LENGTH_SHORT).show();
                 }
-            }
-            private FragmentManager getSupportFragmentManager() {
-                return null;
             }
 
         });
@@ -56,14 +56,11 @@ public class FragmentFirst extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                Fragment FragmentRegister = new FragmentRegister();
-                ft.replace(R.id.FragmentLayout, FragmentRegister, null);
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                Fragment fragmentRegister = new FragmentRegister();
+                ft.replace(R.id.FragmentLayout, fragmentRegister);
                 ft.commit();
-            }
-
-            private FragmentManager getSupportFragmentManager() {
-                return null;
             }
         });
     }

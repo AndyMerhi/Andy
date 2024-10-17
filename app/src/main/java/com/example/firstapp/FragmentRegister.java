@@ -24,9 +24,9 @@ public class FragmentRegister extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userName.findViewById(R.id.userName);
-        Password.findViewById(R.id.password);
-        save.findViewById(R.id.save_button);
+        userName = view.findViewById(R.id.userName);
+        Password = view.findViewById(R.id.password);
+        save = view.findViewById(R.id.save_button);
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
 
@@ -41,16 +41,14 @@ public class FragmentRegister extends Fragment{
                 else {
                     dataBaseHelper.insertUser(name,password);
                     Toast.makeText(getContext(),"Successfully registered!!",Toast.LENGTH_SHORT).show();
-                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                    Fragment FragmentFirst = new FragmentFirst();
-                    ft.replace(R.id.FragmentLayout, FragmentFirst, null);
+
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction ft = fragmentManager.beginTransaction();
+                    Fragment fragmentFirst = new FragmentFirst();
+                    ft.replace(R.id.FragmentLayout, fragmentFirst);
                     ft.commit();
 
                 }
-            }
-
-            private FragmentManager getSupportFragmentManager() {
-                return null;
             }
         });
     }
