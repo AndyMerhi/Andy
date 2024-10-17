@@ -57,7 +57,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     //insert a new user, on register button
-    public void insertUser(String username, String password, String dateCreation, String lastLoginDate){
+    public void insertUser(String username, String password){
         String currentDate = getCurrentDate();
         SQLiteDatabase db = this.getWritableDatabase();
 

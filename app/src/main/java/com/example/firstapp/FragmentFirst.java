@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,18 +44,27 @@ public class FragmentFirst extends Fragment {
                     ft.commit();
                 }
                 else {
-
+                    Toast.makeText(getContext(),"You have to register.",Toast.LENGTH_SHORT).show();
                 }
             }
-
-
-
-
-
             private FragmentManager getSupportFragmentManager() {
                 return null;
             }
 
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Fragment FragmentRegister = new FragmentRegister();
+                ft.replace(R.id.FragmentLayout, FragmentRegister, null);
+                ft.commit();
+            }
+
+            private FragmentManager getSupportFragmentManager() {
+                return null;
+            }
         });
     }
 

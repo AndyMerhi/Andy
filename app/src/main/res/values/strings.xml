@@ -5,4 +5,5 @@
     <string name="maps">AIzaSyCjA4b5IJdsjOsdasBGJOGAtBSB11z49-s</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
+    <string name="save">Save</string>
 </resources>
