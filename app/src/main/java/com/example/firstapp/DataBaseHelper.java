@@ -2,6 +2,7 @@ package com.example.firstapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -55,7 +56,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
-    //insert a new user
+    //insert a new user, on register button
     public void insertUser(String username, String password, String dateCreation, String lastLoginDate){
         String currentDate = getCurrentDate();
         SQLiteDatabase db = this.getWritableDatabase();
@@ -74,7 +75,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //update the last date login when we click on login button, this method should be implemented in the main class
     public void updateLastLogin(String username, String newLoginDate){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -85,10 +85,24 @@ public class DataBaseHelper extends SQLiteOpenHelper {
          db.close();
     }
 
+    //update the last date login when we click on login button, this method should be implemented in the main class
     public void updateUSerLastLogin(String username){
         String currentDate = getCurrentDate();
 
         updateLastLogin(username, currentDate);
+    }
+
+    public boolean checkUser(String username, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String[] columns = {Column_UserName};
+        String selection = Column_UserName + " = ? AND " + Column_Password + " = ?";
+        String[] selectionArgs = {username, password};
+
+        Cursor cursor = db.query(Table_Name, columns, selection, selectionArgs,null,null,null);
+        int cursorCount = cursor.getCount();
+
+        return cursorCount > 0;
     }
 
 

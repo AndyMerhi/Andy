@@ -11,11 +11,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class FragmentFirst extends Fragment {
     private EditText textUsername, textPassword;
     private Button loginButton, registerButton;
-    private TextView text;
+    private DataBaseHelper dataBaseHelper;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -25,6 +27,35 @@ public class FragmentFirst extends Fragment {
         loginButton = view.findViewById(R.id.login_Button);
         registerButton = view.findViewById(R.id.register_Button);
 
+        dataBaseHelper = new DataBaseHelper(getContext());
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = textUsername.getText().toString();
+                String password = textPassword.getText().toString();
+
+                if (dataBaseHelper.checkUser(username,password)){
+                    dataBaseHelper.updateUSerLastLogin(username);
+                    FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                    Fragment FragmentMain = new FragmentMain();
+                    ft.replace(R.id.FragmentLayout, FragmentMain, null);
+                    ft.commit();
+                }
+                else {
+
+                }
+            }
+
+
+
+
+
+            private FragmentManager getSupportFragmentManager() {
+                return null;
+            }
+
+        });
     }
 
     @Override
