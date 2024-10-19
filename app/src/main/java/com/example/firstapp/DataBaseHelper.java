@@ -25,7 +25,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     //query to create the table
 
-    private static final String Create_Table_Login = "CREATE TABLE " + Table_Name + "("
+    private static final String Create_Table_Login = "CREATE TABLE IF NOT EXISTS " + Table_Name + "("
             + Column_UserName + " TEXT PRIMARY KEY, "
             + Column_Password + " TEXT, "
             + Column_Date_Creation + " TEXT, "
@@ -43,17 +43,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + Table_Name);
-        onCreate(db);
+
     }
 
-    // methos to get the current date and time
+    // methods to get the current date and time
     public String getCurrentDate(){
         SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd:HH:mm:ss", Locale.getDefault());
         return date.format(new Date());
     }
-
-
 
 
     //insert a new user, on register button
@@ -75,21 +72,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateLastLogin(String username, String newLoginDate){
+    public void updateLastLogin(String username){
+        String currentDate = getCurrentDate();
         SQLiteDatabase db = this.getWritableDatabase();
 
          ContentValues values = new ContentValues();
-         values.put(Column_Last_Login, newLoginDate);
+         values.put(Column_Last_Login, currentDate);
 
          db.update(Table_Name,values,Column_UserName + " =?", new String[]{username});
          db.close();
-    }
-
-    //update the last date login when we click on login button, this method should be implemented in the main class
-    public void updateUSerLastLogin(String username){
-        String currentDate = getCurrentDate();
-
-        updateLastLogin(username, currentDate);
     }
 
     public boolean checkUser(String username, String password){

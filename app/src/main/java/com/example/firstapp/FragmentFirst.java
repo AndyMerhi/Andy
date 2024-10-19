@@ -37,7 +37,7 @@ public class FragmentFirst extends Fragment {
                 String password = textPassword.getText().toString();
 
                 if (dataBaseHelper.checkUser(username,password)){
-                    dataBaseHelper.updateUSerLastLogin(username);
+                    dataBaseHelper.updateLastLogin(username);
 
                     // Navigate to FragmentMain on successful login
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
