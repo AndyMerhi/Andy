@@ -10,6 +10,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +36,10 @@ public class FragmentMain extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        gridView = FView.findViewById(R.id.gridView);
-        listView = FView.findViewById(R.id.listview);
-        backButton = FView.findViewById(R.id.backButton);
-        maps = FView.findViewById(R.id.maps);
+        gridView = view.findViewById(R.id.gridView);
+        listView = view.findViewById(R.id.listview);
+        backButton = view.findViewById(R.id.backButton);
+        maps = view.findViewById(R.id.maps);
 
         maps.setOnClickListener(v -> {
 
@@ -86,27 +88,25 @@ public class FragmentMain extends Fragment {
                 {"Details for iPhone 10", "RAM: 3 GB", "Battery: 2716 mAh, Li-Ion"},
                 {"Details for iPhone 12", "Battery: 2,815 mAh", "Weight: 5.78 ounces"}
         };
-        listView.setVisibility(View.GONE);
-        backButton.setVisibility(View.GONE);
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listView.setVisibility(View.VISIBLE);
-                backButton.setVisibility(View.VISIBLE);
-                gridView.setVisibility(View.GONE);
-                maps.setVisibility(View.GONE);
-                System.out.println(name);
-                ListAdapter listAdapter = new com.example.firstapp.ListAdapter(getContext(),specs[position]);
-                listView.setAdapter(listAdapter);
-            }
-        });
 
-        backButton.setOnClickListener(v -> {
-            listView.setVisibility(View.GONE);
-            backButton.setVisibility(View.GONE);
-            gridView.setVisibility(View.VISIBLE);
-            maps.setVisibility(View.VISIBLE);
+        gridView.setOnItemClickListener((parent, view1, position, id)->{
+
+                Fragment FragmentList = new FragmentList();
+
+               //prepare the data  to be passed
+                Bundle bundle = new Bundle();
+                bundle.putInt("positon",position);
+                bundle.putStringArray("specs",specs[position]);
+
+                //prepare the bundle to be passed
+                FragmentList.setArguments(bundle);
+
+                //navigate with the data
+                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                transaction.replace(R.id.FragmentLayout,FragmentList);
+                transaction.addToBackStack(null);
+                transaction.commit();
         });
     }
 
@@ -120,8 +120,8 @@ public class FragmentMain extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FView = inflater.inflate(R.layout.fragment_main, container, false);
-        return FView;
+        return inflater.inflate(R.layout.fragment_main, container, false);
+
     }
 
 }

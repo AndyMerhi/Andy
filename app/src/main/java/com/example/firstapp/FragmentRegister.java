@@ -33,8 +33,8 @@ public class FragmentRegister extends Fragment{
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = userName.getText().toString();
-                String password = Password.getText().toString();
+                String name = userName.getText().toString().trim();
+                String password = Password.getText().toString().trim();
                 if (dataBaseHelper.checkUser(name, password)){
                     Toast.makeText(getContext(),"The user already registered.",Toast.LENGTH_SHORT).show();
                 }

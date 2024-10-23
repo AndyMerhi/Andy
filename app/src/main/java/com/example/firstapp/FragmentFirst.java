@@ -33,8 +33,8 @@ public class FragmentFirst extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = textUsername.getText().toString();
-                String password = textPassword.getText().toString();
+                String username = textUsername.getText().toString().trim();
+                String password = textPassword.getText().toString().trim();
 
                 if (dataBaseHelper.checkUser(username,password)){
                     dataBaseHelper.updateLastLogin(username);
