@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,24 +18,25 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.zip.Inflater;
 
 public class FragmentRegister extends Fragment{
-    private EditText userName, Password;
-    private Button save;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        userName = view.findViewById(R.id.userName);
-        Password = view.findViewById(R.id.password);
-        save = view.findViewById(R.id.save_button);
+        ((MainActivity)getActivity()).MainToolBar.setTitle("Register");
+//        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+
+        EditText EditUserName = view.findViewById(R.id.userName);
+        EditText EditPassword = view.findViewById(R.id.password);
+        Button BtnSave = view.findViewById(R.id.save_button);
 
         DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
 
-        save.setOnClickListener(new View.OnClickListener() {
+        BtnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = userName.getText().toString().trim();
-                String password = Password.getText().toString().trim();
+                String name = EditUserName.getText().toString().trim();
+                String password = EditPassword.getText().toString().trim();
                 if (dataBaseHelper.checkUser(name, password)){
                     Toast.makeText(getContext(),"The user already registered.",Toast.LENGTH_SHORT).show();
                 }

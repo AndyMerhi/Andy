@@ -9,5 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     // project colors
     <color name="purple_illusion">#bac2ff</color> // tint color
+    <color name="toolbar">#0229bf</color> //toolbar color
+    <color name="textColor">#4e91fd</color> // text color
+    <color name="fragmentColor">#2c2cff</color>
 
 </resources>

@@ -1,0 +1,5 @@
+<!-- res/drawable/location_with_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/circle_background"/> <!-- Circular background -->
+    <item android:drawable="@drawable/location1" android:gravity="center"/> <!-- Your location icon -->
+</layer-list>

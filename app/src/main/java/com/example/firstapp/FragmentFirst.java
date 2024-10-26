@@ -6,62 +6,52 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class FragmentFirst extends Fragment {
-    private EditText textUsername, textPassword;
-    private Button loginButton, registerButton;
-    private DataBaseHelper dataBaseHelper;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        textUsername = view.findViewById(R.id.userName);
-        textPassword = view.findViewById(R.id.password);
-        loginButton = view.findViewById(R.id.login_Button);
-        registerButton = view.findViewById(R.id.register_Button);
 
-        dataBaseHelper = new DataBaseHelper(getContext());
+        ((MainActivity)getActivity()).MainToolBar.setTitle("Login");
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String username = textUsername.getText().toString().trim();
-                String password = textPassword.getText().toString().trim();
+        EditText textUsername = view.findViewById(R.id.userName);
+        EditText textPassword = view.findViewById(R.id.password);
+        Button loginButton = view.findViewById(R.id.login_Button);
+        Button registerButton = view.findViewById(R.id.register_Button);
 
-                if (dataBaseHelper.checkUser(username,password)){
-                    dataBaseHelper.updateLastLogin(username);
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(getContext());
 
-                    // Navigate to FragmentMain on successful login
-                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                    FragmentTransaction ft = fragmentManager.beginTransaction();
-                    Fragment fragmentMain = new FragmentMain();
-                    ft.replace(R.id.FragmentLayout, fragmentMain);
-                    ft.commit();
-                }
-                else {
-                    Toast.makeText(getContext(),"You have to register.",Toast.LENGTH_SHORT).show();
-                }
-            }
+        loginButton.setOnClickListener(v -> {
+            String username = textUsername.getText().toString().trim();
+            String password = textPassword.getText().toString().trim();
 
-        });
+            if (dataBaseHelper.checkUser(username,password)){
+                dataBaseHelper.updateLastLogin(username);
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                // Navigate to FragmentMain on successful login
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
-                Fragment fragmentRegister = new FragmentRegister();
-                ft.replace(R.id.FragmentLayout, fragmentRegister);
+                Fragment fragmentMain = new FragmentMain();
+                ft.replace(R.id.FragmentLayout, fragmentMain);
                 ft.commit();
             }
+            else {
+                Toast.makeText(getContext(),"You have to register.",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        registerButton.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            Fragment fragmentRegister = new FragmentRegister();
+            ft.replace(R.id.FragmentLayout, fragmentRegister);
+            ft.commit();
         });
     }
 

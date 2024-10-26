@@ -6,32 +6,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentMain">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:title="Dashboard"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
         android:id="@+id/gridView"
         android:layout_marginTop="70dp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/backButton"
-            android:text="Back"
-            android:gravity="center"
-            android:layout_marginTop="50dp"
-            android:layout_alignParentBottom="true"
-            tools:ignore="MissingConstraints" />
-
-
-    <ImageView
-        android:id="@+id/maps"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:src="@mipmap/maps"
-        android:background="@drawable/circle_background"
-        android:layout_marginTop="16dp"
-        tools:ignore="MissingConstraints"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

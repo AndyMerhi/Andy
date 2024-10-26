@@ -9,70 +9,37 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-
-import java.net.SocketOption;
-import java.net.URI;
 
 public class FragmentMain extends Fragment {
     private View FView;
     private GridView gridView;
-    private ListView listView;
-    private Button backButton;
-    private ImageView maps;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        gridView = view.findViewById(R.id.gridView);
-        listView = view.findViewById(R.id.listview);
-        backButton = view.findViewById(R.id.backButton);
-        maps = view.findViewById(R.id.maps);
 
-        maps.setOnClickListener(v -> {
+        Toolbar toolbar = ((MainActivity)getActivity()).MainToolBar;
+        toolbar.setTitle("Dashboard");
 
-//            // Create the URI using latitude and longitude
-//            double latitude = 33.92217;
-//            double longitude = 35.68435;
-//            //int zoomLevel = 5;
-//            String geoURI = "geo:" + "?q=" + latitude + "," + longitude ;//+ "&z=" + zoomLevel
-//
-//            Uri gmmintentURI = Uri.parse(geoURI);
-//
-//            // Create intent to launch Google Maps
-//            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmintentURI);
-//            mapIntent.setPackage("com.google.android.apps.maps");
-
-            String search = "Phones shop";
-
-            //geo0,0 to set the current location
-            String geoUri = "geo:0,0?q=" + Uri.encode(search);
-
-            //parse the URI
-            Uri gmmintentUri = Uri.parse(geoUri);
-
-            //create the intent to lunch the google maps
-            Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmintentUri);
-            mapIntent.setPackage("com.google.android.apps.maps");
-
-            // Check if Google Maps is available
-            if (mapIntent.resolveActivity(requireActivity().getPackageManager()) != null) {
-                startActivity(mapIntent);
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.action_logout) {
+                // Handle logout action
+            } else if (item.getItemId() == R.id.action_location) {
+                // Handle location action
             }
-
+            return true;
         });
+
+
+        gridView = view.findViewById(R.id.gridView);
 
         //grid items + redirect
         String[] phonesName = {"iphone16", "iphone15", "iphone10", "iphone12"};
