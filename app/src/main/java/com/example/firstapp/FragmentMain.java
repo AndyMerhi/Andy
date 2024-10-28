@@ -3,6 +3,7 @@ package com.example.firstapp;
 import static android.content.Intent.ACTION_VIEW;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,9 +15,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+
+import com.google.android.material.navigation.NavigationView;
 
 public class FragmentMain extends Fragment {
     private View FView;
@@ -28,14 +32,22 @@ public class FragmentMain extends Fragment {
 
         Toolbar toolbar = ((MainActivity)getActivity()).MainToolBar;
         toolbar.setTitle("Dashboard");
+        toolbar.getMenu().clear();
+
+        MenuItem item1 = toolbar.getMenu().findItem(R.id.action_location);
+        item1.setVisible(true);
+        toolbar.setNavigationIcon(R.drawable.logout_with_background);
+        toolbar.setNavigationOnClickListener(v -> {
+            ((MainActivity)getActivity()).handleLogout();
+        });
+
 
         toolbar.setOnMenuItemClickListener(item -> {
-            if (item.getItemId() == R.id.action_logout) {
-                // Handle logout action
-            } else if (item.getItemId() == R.id.action_location) {
-                // Handle location action
+
+            if (item.getItemId() == R.id.action_location) {
+                ((MainActivity)getActivity()).handleLocation();
             }
-            return true;
+            return false;
         });
 
 
@@ -63,8 +75,9 @@ public class FragmentMain extends Fragment {
 
                //prepare the data  to be passed
                 Bundle bundle = new Bundle();
-                bundle.putInt("positon",position);
+                bundle.putInt("position",position);
                 bundle.putStringArray("specs",specs[position]);
+                bundle.putString("phone_name",phonesName[position]);
 
                 //prepare the bundle to be passed
                 FragmentList.setArguments(bundle);

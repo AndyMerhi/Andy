@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
         // Set up the toolbar
         MainToolBar = findViewById(R.id.toolbar);
         MainToolBar.setTitle("");
+        MainToolBar.setTitleMarginStart(200);
         setSupportActionBar(MainToolBar);
 
         // Load the initial fragment
@@ -43,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private void handleLogout() {
+    public void handleLogout() {
         loadFragment(new FragmentFirst());
     }
 
-    private void handleLocation() {
+    public void handleLocation() {
         // Open Google Maps with a search query
         String search = "Phones shop";
 
@@ -67,9 +68,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void handleBack() {
-        // Implement back navigation logic here
-        // For example, you can pop the fragment back stack
+    public void handleBackBtn() {
+        //pop the fragment back stack
         getSupportFragmentManager().popBackStack();
     }
 }

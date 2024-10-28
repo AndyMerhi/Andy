@@ -1,21 +1,18 @@
 package com.example.firstapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.util.zip.Inflater;
 
 public class FragmentRegister extends Fragment{
 
@@ -23,8 +20,15 @@ public class FragmentRegister extends Fragment{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((MainActivity)getActivity()).MainToolBar.setTitle("Register");
-//        toolbar.setNavigationOnClickListener(v -> requireActivity().onBackPressed());
+
+        Toolbar toolbar =((MainActivity)getActivity()).MainToolBar;
+        toolbar.getMenu().clear();
+        toolbar.setTitle("Register");
+
+        toolbar.setNavigationIcon(R.drawable.back_button_background);
+        toolbar.setNavigationOnClickListener(v -> {
+            ((MainActivity)getActivity()).handleBackBtn();
+        });
 
         EditText EditUserName = view.findViewById(R.id.userName);
         EditText EditPassword = view.findViewById(R.id.password);

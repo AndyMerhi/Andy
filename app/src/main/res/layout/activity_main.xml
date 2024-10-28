@@ -15,8 +15,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/toolbar"
         app:titleTextColor="@android:color/white"
-        app:layout_constraintTop_toTopOf="parent"
-         />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Fragment layout container -->
     <androidx.constraintlayout.widget.ConstraintLayout

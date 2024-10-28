@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -18,7 +19,8 @@ public class FragmentFirst extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((MainActivity)getActivity()).MainToolBar.setTitle("Login");
+        Toolbar toolbar = ((MainActivity)getActivity()).MainToolBar;
+        toolbar.setTitle("Login");
 
         EditText textUsername = view.findViewById(R.id.userName);
         EditText textPassword = view.findViewById(R.id.password);
@@ -50,6 +52,7 @@ public class FragmentFirst extends Fragment {
             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             Fragment fragmentRegister = new FragmentRegister();
+            ft.addToBackStack(null);
             ft.replace(R.id.FragmentLayout, fragmentRegister);
             ft.commit();
         });
