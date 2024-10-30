@@ -23,8 +23,6 @@ import android.widget.GridView;
 import com.google.android.material.navigation.NavigationView;
 
 public class FragmentMain extends Fragment {
-    private View FView;
-    private GridView gridView;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -46,12 +44,13 @@ public class FragmentMain extends Fragment {
 
             if (item.getItemId() == R.id.action_location) {
                 ((MainActivity)getActivity()).handleLocation();
+                return true;
             }
             return false;
         });
 
 
-        gridView = view.findViewById(R.id.gridView);
+        GridView gridView = view.findViewById(R.id.gridView);
 
         //grid items + redirect
         String[] phonesName = {"iphone16", "iphone15", "iphone10", "iphone12"};
@@ -69,25 +68,25 @@ public class FragmentMain extends Fragment {
         };
 
 
-        gridView.setOnItemClickListener((parent, view1, position, id)->{
+        gridView.setOnItemClickListener((parent, view1, position, id) -> {
+            Fragment fragmentList = new FragmentList();
 
-                Fragment FragmentList = new FragmentList();
+            // Prepare the data to be passed
+            Bundle bundle = new Bundle();
+            bundle.putInt("position", position);
+            bundle.putStringArray("specs", specs[position]); // Check that specs[position] exists
+            bundle.putString("phone_name", phonesName[position]); // Check that phonesName[position] exists
 
-               //prepare the data  to be passed
-                Bundle bundle = new Bundle();
-                bundle.putInt("position",position);
-                bundle.putStringArray("specs",specs[position]);
-                bundle.putString("phone_name",phonesName[position]);
+            fragmentList.setArguments(bundle);
 
-                //prepare the bundle to be passed
-                FragmentList.setArguments(bundle);
-
-                //navigate with the data
-                FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                transaction.replace(R.id.FragmentLayout,FragmentList);
-                transaction.addToBackStack(null);
-                transaction.commit();
+            // Navigate with the data
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.FragmentLayout, fragmentList);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
+
+
     }
 
 

@@ -46,6 +46,7 @@ public class FragmentRegister extends Fragment{
                 }
                 else {
                     dataBaseHelper.insertUser(name,password);
+
                     Toast.makeText(getContext(),"Successfully registered!!",Toast.LENGTH_SHORT).show();
 
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

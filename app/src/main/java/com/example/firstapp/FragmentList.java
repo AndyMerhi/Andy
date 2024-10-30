@@ -33,6 +33,7 @@ public class FragmentList extends Fragment {
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.action_location){
                 ((MainActivity)getActivity()).handleLocation();
+                return true;
             }
             return false;
         });

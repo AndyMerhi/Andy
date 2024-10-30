@@ -40,6 +40,7 @@ public class FragmentFirst extends Fragment {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 Fragment fragmentMain = new FragmentMain();
+                ft.addToBackStack(null);
                 ft.replace(R.id.FragmentLayout, fragmentMain);
                 ft.commit();
             }

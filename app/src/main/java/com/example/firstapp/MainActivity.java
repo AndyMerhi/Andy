@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         MainToolBar.setTitleMarginStart(200);
         setSupportActionBar(MainToolBar);
 
+        // Listen for back stack changes to manage back button visibility
+        getSupportFragmentManager().addOnBackStackChangedListener(this::handleBackButtonVisibility);
+
+
         // Load the initial fragment
         loadFragment(new FragmentFirst());
     }
@@ -71,5 +75,17 @@ public class MainActivity extends AppCompatActivity {
     public void handleBackBtn() {
         //pop the fragment back stack
         getSupportFragmentManager().popBackStack();
+    }
+
+    private void handleBackButtonVisibility() {
+        // Check if at the root fragment
+        boolean isRootFragment = getSupportFragmentManager().getBackStackEntryCount() == 0;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(!isRootFragment);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        handleBackBtn();
+        return true;
     }
 }
