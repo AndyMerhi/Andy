@@ -1,11 +1,7 @@
 package com.example.firstapp;
 
-import static android.content.Intent.ACTION_VIEW;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.net.Uri;
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.google.android.material.navigation.NavigationView;
 
 public class FragmentMain extends Fragment {
 
@@ -28,22 +23,38 @@ public class FragmentMain extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = ((MainActivity)getActivity()).MainToolBar;
+        Toolbar toolbar = ((MainActivity) getActivity()).MainToolBar;
+
+        // Set toolbar title
         toolbar.setTitle("Dashboard");
+
+        // Clear previous menu items
         toolbar.getMenu().clear();
 
-        MenuItem item1 = toolbar.getMenu().findItem(R.id.action_location);
-        item1.setVisible(true);
+        // Inflate the menu to ensure the action_location item is present
+        toolbar.inflateMenu(R.menu.shared_menu);
+
+        // Show location icon in toolbar menu
+        MenuItem locationIcon = toolbar.getMenu().findItem(R.id.action_location);
+        if (locationIcon != null) {
+            locationIcon.setVisible(true);
+        }
+
         toolbar.setNavigationIcon(R.drawable.logout_with_background);
         toolbar.setNavigationOnClickListener(v -> {
-            ((MainActivity)getActivity()).handleLogout();
+            // Show a logout confirmation dialog instead of navigating
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to logout?")
+                    .setPositiveButton("Yes", (dialog, which) -> ((MainActivity) getActivity()).handleLogout())
+                    .setNegativeButton("No", null)
+                    .show();
         });
 
-
+        // Set menu item click listener for location
         toolbar.setOnMenuItemClickListener(item -> {
-
             if (item.getItemId() == R.id.action_location) {
-                ((MainActivity)getActivity()).handleLocation();
+                ((MainActivity) getActivity()).handleLocation();
                 return true;
             }
             return false;
@@ -61,10 +72,10 @@ public class FragmentMain extends Fragment {
         gridView.setAdapter(gridAdapter);
 
         String[][] specs = {
-                {"Details for iPhone 16", " 6.1″ display", "Apple A18 chipset, 512 GB storage"},
-                {"Details for iPhone 15", "48MP camera", "Starts at $799"},
-                {"Details for iPhone 10", "RAM: 3 GB", "Battery: 2716 mAh, Li-Ion"},
-                {"Details for iPhone 12", "Battery: 2,815 mAh", "Weight: 5.78 ounces"}
+                { " 6.1″ display", "Apple A18 chipset, 512 GB storage"},
+                { "48MP camera", "Starts at $799"},
+                { "RAM: 3 GB", "Battery: 2716 mAh, Li-Ion"},
+                { "Battery: 2,815 mAh", "Weight: 5.78 ounces"}
         };
 
 

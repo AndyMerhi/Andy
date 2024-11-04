@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +50,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void handleLogout() {
+        // Optionally, show a toast or dialog instead of navigating to FragmentFirst
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
+
+
         loadFragment(new FragmentFirst());
     }
 

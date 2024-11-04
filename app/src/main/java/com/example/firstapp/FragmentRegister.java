@@ -53,6 +53,7 @@ public class FragmentRegister extends Fragment{
                     FragmentTransaction ft = fragmentManager.beginTransaction();
                     Fragment fragmentFirst = new FragmentFirst();
                     ft.replace(R.id.FragmentLayout, fragmentFirst);
+                    ft.addToBackStack(null);
                     ft.commit();
 
                 }
